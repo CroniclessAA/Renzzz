@@ -294,7 +294,7 @@ const loadUserActivity = () => {
 // --- Middleware untuk Mengecek Mode Maintenance ---
 const checkMaintenance = async (ctx, next) => {
     let userId, userNickname;
-
+    const q = ctx.message.text.split(" ")[1];
     if (ctx.from) {
         userId = ctx.from.id.toString();
         userNickname = ctx.from.first_name || userId;
