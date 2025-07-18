@@ -25,6 +25,7 @@
         "telegram": "^2.26.8",
         "twilio": "^5.3.7",
         "whatsapp-web.js": "^1.26.0",
-        "js-confuser": "^1.7.1"
+        "js-confuser": "^1.7.1", 
+        "yt-search": "latest"
     }
 }

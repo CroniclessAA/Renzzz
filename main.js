@@ -73,6 +73,7 @@ const {
     InteractiveMessage,
     Header,
 } = require('@whiskeysockets/baileys');
+const { search } = require('yt-search');
 const pino = require('pino');
 const chalk = require('chalk');
 const axios = require('axios');
@@ -1265,6 +1266,48 @@ const checkWhatsAppConnection = async (ctx, next) => {
     await next();
 };
 
+
+// UTILITY MENU
+
+bot.command("play", async ctx => {
+    if (!q) {
+      return await ctx.reply(`Example: play hysteria`);
+  }
+  const results = await search(text)
+    const { title, url, author, duration, thumbnail } = results.videos[0] 
+    const body = `• Judul: ${title}\n` +
+      `• Channel: ${author.name}\n` +
+      `• Durasi: ${duration}\n` +
+      `• Link: ${url}`
+    const mainKeyboard = [
+    [{
+      text: "『 Audio 』", 
+      callback_data: "owner_menu"
+    }, 
+    {
+      text: "『 Video 』", 
+      callback_data: "util_menu"
+    }], 
+    [{
+      text: "[+ 𝙾𝚆𝙽𝙴𝚁 𝙲𝙾𝙽𝚃𝙰𝙲𝚃 +]", 
+      url: "https://t.me/freakytwoo"
+    }]
+  ];
+
+  setTimeout(async () => {
+    await ctx.replyWithPhoto(thumbnail, {
+      caption: body,
+      parse_mode: "Markdown",
+      reply_markup: {
+        inline_keyboard: mainKeyboard
+      }
+    });
+  }, 1000);
+}
+)
+
+
+
 const QBug = {
   key: {
     remoteJid: "p",
@@ -1420,9 +1463,9 @@ bot.start(async (ctx) => {
     const waktuRunPanel = getUptime(); // Waktu uptime panel
         
   const mainMenuMessage = `\`\`\`
-╭━𓊈 𝐓𝐑𝐀𝐙 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
-║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : 𝚃𝚁𝙰𝚉 𝙸𝙽𝚅𝙸𝙲𝚃𝚄𝚂
-┃𝚅𝙴𝚁𝚂𝙸𝙾𝙽 : 𝟸.𝟺
+╭━𓊈  𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
+║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : ꎇꋪꍟꍏꀘ ꀸꋪꂦꅏꈤ
+┃𝚅𝙴𝚁𝚂𝙸𝙾𝙽 : 3.0
 ║𝚁𝚄𝙽𝚃𝙸𝙼𝙴 : ${waktuRunPanel}
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━═╣
 ╭━━━━━━━━━━━━━━━━━━━━━
@@ -1438,6 +1481,10 @@ const mainKeyboard = [
     [{
       text: "『 𝐎𝐖𝐍𝐄𝐑 𝐂𝐎𝐌𝐌𝐀𝐍𝐃 』", 
       callback_data: "owner_menu"
+    }, 
+    {
+      text: "『 𝐔𝐓𝐈𝐋𝐈𝐓𝐘 𝐂𝐎𝐌𝐌𝐀𝐍𝐃 』", 
+      callback_data: "util_menu"
     }, 
     {
       text: "『 𝐁𝐔𝐆 𝐂𝐎𝐌𝐌𝐀𝐍𝐃 』",
@@ -1470,8 +1517,8 @@ bot.action('owner_menu', async (ctx) => {
     const waktuRunPanel = getUptime(); // Waktu uptime panel
     
   const mainMenuMessage = `\`\`\`
-╭━𓊈 𝐓𝐑𝐀𝐙 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
-║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : 𝚃𝚁𝙰𝚉 𝙸𝙽𝚅𝙸𝙲𝚃𝚄𝚂
+╭━𓊈  𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
+║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : ꎇꋪꍟꍏꀘ ꀸꋪꂦꅏꈤ
 ┃𝚅𝙴𝚁𝚂𝙸𝙾𝙽 : 𝟸.𝟺
 ║𝚁𝚄𝙽𝚃𝙸𝙼𝙴 : ${waktuRunPanel}
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━═╣
@@ -1515,8 +1562,8 @@ bot.action('admin_menu', async (ctx) => {
     const waktuRunPanel = getUptime(); // Waktu uptime panel
     
   const mainMenuMessage = `\`\`\`
-╭━𓊈 𝐓𝐑𝐀𝐙 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
-║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : 𝚃𝚁𝙰𝚉 𝙸𝙽𝚅𝙸𝙲𝚃𝚄𝚂
+╭━𓊈  𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
+║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : ꎇꋪꍟꍏꀘ ꀸꋪꂦꅏꈤ
 ┃𝚅𝙴𝚁𝚂𝙸𝙾𝙽 : 𝟸.𝟺
 ║𝚁𝚄𝙽𝚃𝙸𝙼𝙴 : ${waktuRunPanel}
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━═╣
@@ -1556,8 +1603,8 @@ bot.action('bug_menu', async (ctx) => {
     const waktuRunPanel = getUptime(); // Waktu uptime panel
     
   const mainMenuMessage = `\`\`\`  
-╭━𓊈 𝐓𝐑𝐀𝐙 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
-║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : 𝚃𝚁𝙰𝚉 𝙸𝙽𝚅𝙸𝙲𝚃𝚄𝚂
+╭━𓊈  𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
+║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : ꎇꋪꍟꍏꀘ ꀸꋪꂦꅏꈤ
 ┃𝚅𝙴𝚁𝚂𝙸𝙾𝙽 : 𝟸.𝟺
 ║𝚁𝚄𝙽𝚃𝙸𝙼𝙴 : ${waktuRunPanel}
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━═╣
@@ -1589,6 +1636,48 @@ const mainKeyboard = [
     });
 })
 
+bot.action('util_menu', async (ctx) => {
+  await ctx.deleteMessage();
+  const isPremium = isPremiumUser(ctx.from.id);
+  const isAdminStatus = isAdmin(ctx.from.id);
+  const isOwnerStatus = isOwner(ctx.from.id);  
+//Runtime Module
+    const waktuRunPanel = getUptime(); // Waktu uptime panel
+    
+  const mainMenuMessage = `\`\`\`  
+╭━𓊈  𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
+║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : ꎇꋪꍟꍏꀘ ꀸꋪꂦꅏꈤ
+┃𝚅𝙴𝚁𝚂𝙸𝙾𝙽 : 𝟸.𝟺
+║𝚁𝚄𝙽𝚃𝙸𝙼𝙴 : ${waktuRunPanel}
+╰━━━━━━━━━━━━━━━━━━━━━━━━━═╣
+  
+┏━━『 𝗕𝗨𝗚 𝗠𝗘𝗡𝗨 』
+╿☐ ⧽ /ᴘʟᴀʏ × ʟɪɴᴋ
+╽☐ ⧽ /ᴛᴛ × ʟɪɴᴋ
+╽☐ ⧽ /ᴛɪɴʏᴜʀʟ × ʟɪɴᴋ
+╿☐ ⧽ /ɢɪᴛᴄʟᴏɴᴇ × ʟɪɴᴋ
+╽☐ ⧽ /ꜱᴘᴏᴛɪꜰʏ × ʟɪɴᴋ
+╿☐ ⧽ /ᴋᴀʟᴇɴᴅᴇʀ
+┕━━━━━━━━━━━━━━━━━━━━━━━━━━
+\`\`\``;
+  
+const mainKeyboard = [
+    [{
+      text: "𝙱𝙰𝙲𝙺",
+      callback_data: "back"
+    }]
+  ];
+
+
+  await ctx.replyWithPhoto("https://files.catbox.moe/kzk3dp.jpg", {
+      caption: mainMenuMessage,
+      parse_mode: "Markdown",
+      reply_markup: {
+        inline_keyboard: mainKeyboard
+      }
+    });
+})
+
 // Handler untuk callback "main_menu"
 bot.action('back', async (ctx) => {
   await ctx.deleteMessage();
@@ -1599,8 +1688,8 @@ bot.action('back', async (ctx) => {
     const waktuRunPanel = getUptime(); // Waktu uptime panel
  
   const mainMenuMessage = `\`\`\` 
-╭━𓊈 𝐓𝐑𝐀𝐙 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
-║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : 𝚃𝚁𝙰𝚉 𝙸𝙽𝚅𝙸𝙲𝚃𝚄𝚂
+╭━𓊈  𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 𓊉━═╣
+║𝙱𝙾𝚃 𝙽𝙰𝙼𝙴 : ꎇꋪꍟꍏꀘ ꀸꋪꂦꅏꈤ
 ┃𝚅𝙴𝚁𝚂𝙸𝙾𝙽 : 𝟸.𝟺
 ║𝚁𝚄𝙽𝚃𝙸𝙼𝙴 : ${waktuRunPanel}
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━═╣
